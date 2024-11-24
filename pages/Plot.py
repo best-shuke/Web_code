@@ -1,7 +1,8 @@
-import pandas as pd
-import streamlit as st
-import plotly.express as px
 import os
+
+import pandas as pd
+import plotly.express as px
+import streamlit as st
 
 # 判断是否存在数据文件
 if not os.path.isfile('data.csv'):

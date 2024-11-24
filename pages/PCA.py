@@ -1,9 +1,10 @@
+import os
+
 import pandas as pd
-import streamlit as st
-from sklearn.decomposition import PCA
 import plotly.express as px
 import plotly.graph_objects as go
-import os
+import streamlit as st
+from sklearn.decomposition import PCA
 
 st.header("主成分分析 (PCA)")
 

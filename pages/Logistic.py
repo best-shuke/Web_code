@@ -1,10 +1,11 @@
+import os
+
+import numpy as np
 import pandas as pd
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
 import streamlit as st
 from scipy.stats import norm
-import numpy as np
-import statsmodels.formula.api as smf
-import statsmodels.api as sm
-import os
 
 # 判断是否存在数据文件
 if not os.path.isfile('data.csv'):

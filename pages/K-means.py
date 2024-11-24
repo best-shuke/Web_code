@@ -1,10 +1,11 @@
 # pages/K-means.py
+import os
+
+import numpy as np
 import pandas as pd
+import plotly.express as px  # 导入 plotly.express 用于绘图
 import streamlit as st
 from sklearn.cluster import KMeans
-import numpy as np
-import os
-import plotly.express as px  # 导入 plotly.express 用于绘图
 
 # 判断是否存在数据文件
 if not os.path.isfile('data.csv'):
