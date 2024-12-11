@@ -1,18 +1,36 @@
 import os
-
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
 from sklearn.decomposition import PCA
 
-st.header("主成分分析 (PCA)")
+# 页面标题
+st.title("🔍 主成分分析 (PCA)")
 
-# 判断是否存在数据文件
-if not os.path.isfile('data.csv'):
-    st.error("请先执行上一步骤")
-else:
-    df = pd.read_csv('data.csv')
+# 页面简介
+st.markdown("""
+    🎉 欢迎使用主成分分析（PCA）工具！\n
+    在这里，您可以对您的数据集进行主成分分析，帮助您降维并理解数据的内在结构。\n
+    功能：
+    - 📤 上传您的数据文件（CSV格式）
+    - 🧑‍🏫 选择用于PCA的数值列
+    - 📊 执行PCA，查看碎石图、PCA结果和方差贡献率
+    - 💾 下载PCA分析结果文件
+""")
+
+# 上传数据文件功能
+st.header("📤 上传数据文件")
+uploaded_file = st.file_uploader("选择一个CSV文件", type=["csv"])
+
+# 如果文件已上传
+if uploaded_file is not None:
+    df = pd.read_csv(uploaded_file)
+    st.success(f"文件 '{uploaded_file.name}' 已成功上传！🎉")
+
+    # 显示数据预览
+    st.subheader("📋 数据预览")
+    st.write(df.head())
 
     # 选择数值列用于主成分分析
     numeric_columns = df.select_dtypes(include=['float64', 'int']).columns.tolist()
@@ -54,7 +72,7 @@ else:
 
                 # 保存PCA结果
                 pca_df = pd.DataFrame(pca_result, columns=[f"PC{i + 1}" for i in range(n_components)])
-                st.write("PCA 结果：")
+                st.write("📊 PCA 结果：")
                 st.write(pca_df.head())
 
                 # 显示选择的主成分方差贡献率
@@ -71,10 +89,23 @@ else:
                                      labels={"PC1": "主成分 1", "PC2": "主成分 2"})
                     st.plotly_chart(fig)  # 使用 Streamlit 显示图表
 
+                # 绘制方差贡献率的饼图
+                fig_pie = px.pie(variance_df, names="主成分", values="方差贡献率 (%)", title="各主成分的方差贡献率")
+                st.plotly_chart(fig_pie)
+
                 # 如果主成分大于2，提供其他可视化方式
                 if n_components > 2:
                     st.write("更多主成分的可视化可以通过其他方法实现。")
+
+                # 下载PCA分析结果
+                pca_file = "pca_result.csv"
+                pca_df.to_csv(pca_file, index=False)
+                st.success(f"PCA结果已保存到 '{pca_file}' 文件！📁")
+                st.download_button("点击下载PCA结果文件", pca_file)
+
             except Exception as e:
                 st.error(f"主成分分析时出错: {e}")
     else:
         st.info("请选择至少一列用于主成分分析")
+else:
+    st.warning("⚠️ 请上传一个CSV文件以开始主成分分析。")
