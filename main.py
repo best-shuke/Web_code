@@ -256,7 +256,7 @@ elif function_choice == "无监督学习":
         - **K-means聚类分析**：
             K-means聚类的核心思想是将数据点划分为K个簇，使得簇内的数据点尽可能相似，而簇间的数据点尽可能不同。
             这个过程通过迭代地移动簇中心和重新分配数据点到最近的簇中心来实现，直到簇的分配不再发生变化或达到预设的迭代次数
-        - **主成分分析(PCA)：
+        - **主成分分析(PCA)**：
             主成分分析（PCA）是一种降维技术，它通过正交变换将一组可能相关的变量转换成一组线性不相关的变量，称为主成分。
             其核心思想是识别数据中的主要变化方向，并在这些方向上捕捉数据的大部分信息，从而用较少的维度来表示原始数据集。
     """)
@@ -264,7 +264,7 @@ elif function_choice == "无监督学习":
     st.subheader('数据预览')
     st.write(df.head(10))
 
-    learning_option = st.selectbox("选择模型", ["K-means聚类分析", "主成分分析(PCA)"])
+    learning_option = st.selectbox("选择模型", ["K-means聚类分析", "主成分分析"])
 
     if learning_option == "K-means聚类分析":
         st.subheader("K-means聚类分析")
